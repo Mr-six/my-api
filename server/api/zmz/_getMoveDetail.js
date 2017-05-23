@@ -29,7 +29,14 @@ function getDetail (cookies, id) {
             const media_box = $('.media-box')  // 资源下载区
             const media_list = media_box.find('.media-list')  //资源列表区
 
-            // 过滤列表 测试720p列表
+            if (!media_list.length) {
+              resolve({
+                success: false,
+                dsc: '资源被删除',
+                data: []
+              })
+            }
+            // 遍历下载资源列表
             media_list.each(function (index, el) {
               let list = $(el)
               let source = {}  // 资源对象
@@ -38,7 +45,7 @@ function getDetail (cookies, id) {
               let li = list.find('li')    // 标签列表
               source[source_type] = []   // 储存某类型视频列表
 
-              // 单一列表循环
+              // 单一列表遍历
               li.each(function (index, el) {
                 let cur_li = $(el)
                 let season = cur_li.attr('season')    // 季数
@@ -47,7 +54,7 @@ function getDetail (cookies, id) {
                 let load_link = cur_li.find('.fr a')    // 下载链接数组
                 let load_arr = []   // 视频链接下载地址
 
-                // 下载列表数组
+                // 下载列表数组遍历
                 load_link.each(function (index, el) {   // 对其进行遍历 提取单个下载分类
                   let type_url = $(el).attr('href') || $(el).attr('xmhref')   // 下载链接
                   let type = $(el).html()   // 下载链接类型
@@ -58,7 +65,7 @@ function getDetail (cookies, id) {
                   })
                 })
 
-                source[source_type].push({    // 将 季数 集数 标题 下载地址 保存在 type720 数组中
+                source[source_type].push({    // 将 季数 集数 标题 下载地址 保存在 对应类别 数组中
                   season,
                   episode,
                   title,

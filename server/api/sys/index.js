@@ -12,8 +12,8 @@ module.exports = function () {
     let uptime = os.uptime()       // 总运行时间
     let free_rate = (100 * freemem / totalmem).toFixed(2) // 剩余内存百分比 保留两位小数
     let data = {
-      mes: 'ok',
-      dsc: 'sys 状态',
+      success: true,
+      dsc: '系统状态',
       data: {
         arch,
         cpu,

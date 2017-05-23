@@ -20,8 +20,8 @@ module.exports = {
 
     // 用户信息 - 配置
     'user': {
-      account: '582497915@qq.com',
-      password: 'Zsin90=1!m',
+      account: 'account',
+      password: 'password',
       remember: '1',
       url_back: zmz_url
     },

@@ -59,10 +59,19 @@ async function getFav () {
 
 // 获取关注条目详细信息（下载地址等）
 async function getFavDetail () {
+  let datas = {
+    "success": true,
+    "dsc": '关注资源下载列表',
+    data: []
+  }
+
   let cookies = await _get_cookies()
   let moveList = await _get_myfav(cookies)
-  let id = moveList.data[0].id
-  return _getMoveDetail(cookies, id)
+  let moveData = moveList.data
+  // 并行执行查询
+  let promises = moveData.map((el) => _getMoveDetail(cookies, el.id))
+  datas.data = await Promise.all(promises);
+  return datas  
 }
 
 module.exports = {
