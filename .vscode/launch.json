@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceRoot}/server/apiServer.js",
+            "program": "${workspaceRoot}/server/server.js",
             "runtimeExecutable": null,
             "runtimeArgs": [
                 "--nolazy"

@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-let BASE_URL = 'https://api.douban.com/v2/'
+const {BASE_URL} = require('../../config').douban
 
 const defaults = {
   baseURL: BASE_URL
