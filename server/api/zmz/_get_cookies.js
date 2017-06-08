@@ -7,13 +7,14 @@ const request = require('superagent')
 const config = require('../../config')
 
 // 发送数据
-const post_data = config.zmz.user
+const config_data = config.zmz.user
 
 // 正则过滤cookie规则
 const reg_cookie = /GINFO=uid|GKEY=\w{10,}/
 
 // 获取cookies方法
-function _get_cookies () {
+function _get_cookies (user) {
+  let post_data = Object.assign({}, config_data, user)  // 配置用户名密码
   return new Promise(function (resolve, reject) {
     request
       .post(config.zmz.sigin_path)
@@ -28,7 +29,12 @@ function _get_cookies () {
         } else {
           if (res.header) {
             let cookies = res.header['set-cookie']
-            resolve (_filter_cookie(cookies))     // 返回登陆成功后的cookies值            
+            let f_cookies = _filter_cookie(cookies)
+            if (f_cookies.length) {
+              resolve (f_cookies)     // 返回登陆成功后的cookies值 
+            } else {  // 登录错误
+              reject(config.errMsg.account_err())
+            }      
           }
         }
     })
@@ -42,6 +48,8 @@ function _filter_cookie (cookie) {
     el.split(';').forEach(function (el, i) {
       if (el.match(reg_cookie)) {
         COOKIE.push(el)
+      } else {
+        return false
       }
     })
   })

@@ -52,20 +52,20 @@ function _get_myfav (cookies) {
 }
 
 // 获取关注条目
-async function getFav () {
-  let cookies = await _get_cookies()
+async function getFav (user) {
+  let cookies = await _get_cookies(user)
   return _get_myfav(cookies)
 }
 
 // 获取关注条目详细信息（下载地址等）
-async function getFavDetail () {
+async function getFavDetail (user) {
   let datas = {
     "success": true,
     "dsc": '关注资源下载列表',
     data: []
   }
 
-  let cookies = await _get_cookies()
+  let cookies = await _get_cookies(user)
   let moveList = await _get_myfav(cookies)
   let moveData = moveList.data
   // 并行执行查询

@@ -1,13 +1,13 @@
 ## 项目说明
 这是一个基于express的node后端API服务，当时只是想抓取字幕组网站的下载资源，以备以后通过nas的方式去自动下载关注的美剧。
 字幕组网站资源抓取原理：
-    - 首先发送登录请求到目标登录地址，登录成功后会获取到cookies
-    - 携带cookies访问收藏页面，通过cheerio抓取相应的关注信息
-    - 使用 es6 的 async 函数 并发执行抓取每一个关注的信息（如果当关注条目很多的时候，并行效率可能会比较低，之后考虑限制并行数量）
+- 首先发送登录请求到目标登录地址，登录成功后会获取到cookies
+- 携带cookies访问收藏页面，通过cheerio抓取相应的关注信息
+- 使用 es6 的 async 函数 并发执行抓取每一个关注的信息（如果当关注条目很多的时候，并行效率可能会比较低，之后考虑限制并行数量）
 豆瓣电影API
-    - 只是做了一个简单的转发，并对返回的数据做了一个过滤，可以自定义过滤掉低于某个分数的电影
+- 只是做了一个简单的转发，并对返回的数据做了一个过滤，可以自定义过滤掉低于某个分数的电影
 系统状态API
-    - 引入了node的 os 模块，获取一些基础的系统状态数据
+- 引入了node的 os 模块，获取一些基础的系统状态数据
 
 使用了es6 的 async 函数 处理异步数据
 ## 遇到的问题
@@ -26,7 +26,10 @@
 为了隐去配置文件中的账号信息，使用default文件代替
 
 ## API说明
-字幕组API
+
+----
+
+### 字幕组API
 #### GET /api/v1/zmz/hot24  获取24小时下载热门数据
 返回值示例
 ```
@@ -48,7 +51,11 @@
   ]
 }
 ```
-#### GET /api/v1/zmz/fav  获取关注列表
+#### POST /api/v1/zmz/fav  获取关注列表
+接收 post 参数:
+- account String 字幕组账户用户名
+- password String 字幕组账户用户名
+
 返回值示例
 ```
 {
@@ -64,7 +71,11 @@
   ]
 }
 ```
-#### GET /api/v1/zmz/fav/detail  获取关注列表下载资源
+#### POST /api/v1/zmz/fav/detail  获取关注列表下载资源
+接收 post 参数:
+- account String 字幕组账户用户名
+- password String 字幕组账户用户名
+
 返回值示例
 ```
 {
@@ -92,14 +103,17 @@
   ]
 }
 ```
-豆瓣电影-正在上映API
+## 豆瓣电影-正在上映API
+
 #### GET /api/v1/movie/cur  获取正在上映的电影
-参数：
-    - star 所需过滤的分数一下的电影（总分10分，默认为8分）
+接收 get 参数:
+- star 所需过滤的分数一下的电影（总分10分，默认为8分）
+
 返回值示例
 [同豆瓣API](https://developers.douban.com/wiki/?title=movie_v2)
 
-系统状态API
+## 系统状态API
+
 #### GET /api/v1/sys  获取当前系统状态
 返回值示例
 ```
@@ -118,3 +132,42 @@
   }
 }
 ```
+## cnode社区API代理
+
+代理[cnodejs社区](https://cnodejs.org/api)的API转发，只是用来测试用的，因为cnode的API本身是支持跨域的。
+使用详情请参考他提供的API参数和地址代理转发的API使用 /cnode/...为前缀进入代理路由
+
+#### GET /cnode/topics  主题首页
+接收 get 参数
+- page Number 页数
+- tab String 主题分类。目前有 ask share job good dev
+- limit Number 每一页的主题数量
+- mdrender String 当为 false 时，不渲染。默认为 true，渲染出现的所有 markdown 格式文本。
+
+## 知乎日报API代理
+首先感谢[izzyleung提供的API分析](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
+使用详情请参考他提供的API参数和地址代理转发的API使用 /ribao/...为前缀进入代理路由
+
+#### GET /ribao/api/7/prefetch-launch-images/1080*1920  启动界面图像获取
+`prefetch-launch-images` 后为图像分辨率，接受任意的 number*number 格式， number 为任意非负整数，返回值均相同
+返回值示例
+```
+{
+  "creatives": [
+    {
+      "url": "https://pic1.zhimg.com/v2-cf690e166adee2d77ebb3450d4ddc424.jpg",
+      "start_time": 1496932908,
+      "impression_tracks": [
+        "https://sugar.zhihu.com/track?ai=4704&ut=&tu=&vs=2&ts=1496932908&si=ec82667293bd47cc88261ab0653cf64f&lu=0&hn=ad-engine.ad-engine.05d757af&at=impression&pf=PC&az=11&sg=4d27dde3d4db55a399ed6ecfc333eedb"
+      ],
+      "type": 0,
+      "id": "4704"
+    }
+  ]
+}
+```
+#### GET /ribao/api/4/news/latest  最新消息
+
+等……
+具体参考[izzyleung提供的API分析](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)中的使用方式以及参数含义。
+*ps: 关于图片防盗链的问题 可添加meta 标签 <meta name="referrer" content="never">*
