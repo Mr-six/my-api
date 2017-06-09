@@ -11,6 +11,7 @@
 
 系统状态API
 - 引入了node的 os 模块，获取一些基础的系统状态数据
+
 cnode社区和知乎日报API
 - 均为转发请求，目的是为了接解决跨域访问的问题
 - cnode社区API本身支持跨域，本例只做测试用
@@ -19,6 +20,13 @@ cnode社区和知乎日报API
 - 使用了es6 的 async 函数 处理异步数据
 - 集成node 8.0.0版本的docker 托管在云服务器方便访问
 - 使用cors模块解决跨域问题，可以通过白名单的方式去配置允许跨域的ip。
+
+## 在线访问地址
+使用docker容器构建，托管在了[daocloud.io](daocloud.io)的免费应用中
+
+- API地址：http://mrsix-api.daoapp.io
+- 访问示例：get `http://mrsix-api.daoapp.io/api/v1/zmz/hot24`  获取24小时下载热门数据
+
 
 ## 遇到的问题
 关于请求库 axios 在以form-data的形式发送post请求登录的的时候，遇到了问题，就是登录不上“字幕组”网站。（类似的问题 在cnode的兄弟也遇到了，不过我就没人家厉害了[关于axios在node中的post使用](https://cnodejs.org/topic/57e17beac4ae8ff239776de5)）后来直接使用了 [superagent](http://visionmedia.github.io/superagent/)感觉用起来很舒畅
@@ -33,7 +41,6 @@ cnode社区和知乎日报API
 * [ ] 提供前端页面展示
 * [ ] 集成到docker中，通过Nginx处理端口转发
 
-为了隐去配置文件中的账号信息，使用default文件代替
 
 ## API说明
 
@@ -183,4 +190,6 @@ cnode社区和知乎日报API
 *ps: 关于图片防盗链的问题 可添加meta 标签 * `<meta name="referrer" content="never">`
 
 ## 添加docker部分
+- 使用dockerHub的自动构建功能关联GitHub项目，每当有新代码push之后触发自动构建命令
+- daocloud.io 控制台使用手动更新发布的方式（不支持dockerhub的自动发布）
 

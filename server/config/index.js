@@ -20,6 +20,8 @@ module.exports = {
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   },
 
+  gitReadme: 'https://github.com/Mr-six/my-api/blob/master/README.md',  // 项目git地址
+
   errMsg,  // 错误消息模块
 
   // 字幕组网站

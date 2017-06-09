@@ -9,6 +9,8 @@ const config = require('./config/')
 
 const apiRouter = require('./router/')
 
+const request = require('superagent')
+
 const cors = require('cors')  // 跨域中间件
 
 const cnode = require('./api/cnode')  // cnode
@@ -20,7 +22,7 @@ app.use(bodyParser.json())  // parse application/json
 app.use(cors(config.corsOptions))  // 允许跨域配置
 
 app.get('/', function (req, res) {
-  res.end('test api server')
+  request(config.gitReadme).pipe(res)  // 返回git 项目地址首页
 })
 
 // api访问接口
