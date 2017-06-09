@@ -5,8 +5,10 @@
 - 首先发送登录请求到目标登录地址，登录成功后会获取到cookies
 - 携带cookies访问收藏页面，通过cheerio抓取相应的关注信息
 - 使用 es6 的 async 函数 并发执行抓取每一个关注的信息（如果当关注条目很多的时候，并行效率可能会比较低，之后考虑限制并行数量）
+
 豆瓣电影API
 - 只是做了一个简单的转发，并对返回的数据做了一个过滤，可以自定义过滤掉低于某个分数的电影
+
 系统状态API
 - 引入了node的 os 模块，获取一些基础的系统状态数据
 cnode社区和知乎日报API
@@ -178,7 +180,7 @@ cnode社区和知乎日报API
 
 等……
 具体参考[izzyleung提供的API分析](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)中的使用方式以及参数含义。
-*ps: 关于图片防盗链的问题 可添加meta 标签 <meta name="referrer" content="never">*
+*ps: 关于图片防盗链的问题 可添加meta 标签 * `<meta name="referrer" content="never">`
 
 ## 添加docker部分
 
