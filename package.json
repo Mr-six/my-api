@@ -5,11 +5,16 @@
   "main": "index.js",
   "author": "miao",
   "license": "MIT",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node server/server.js",
+    "dev": "cross-env NODE_ENV=development node server/server.js"
+  },
   "dependencies": {
     "axios": "^0.16.0",
     "body-parser": "^1.17.2",
     "cheerio": "^0.22.0",
     "cors": "^2.8.3",
+    "cross-env": "^5.0.1",
     "express": "^4.14.0",
     "http-proxy-middleware": "^0.17.4",
     "superagent": "^3.3.2"
