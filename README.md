@@ -1,5 +1,6 @@
 ## 项目说明
-这是一个基于express的node后端API服务，当时只是想抓取字幕组网站的下载资源，以备以后通过nas的方式去自动下载关注的美剧。
+这是一个基于express的node后端API服务，当时只是想抓取字幕组网站的下载资源，以备以后通过nas的方式去自动下载关注的美剧。不过后来慢慢扩展了几个API
+
 字幕组网站资源抓取原理：
 - 首先发送登录请求到目标登录地址，登录成功后会获取到cookies
 - 携带cookies访问收藏页面，通过cheerio抓取相应的关注信息
@@ -8,8 +9,15 @@
 - 只是做了一个简单的转发，并对返回的数据做了一个过滤，可以自定义过滤掉低于某个分数的电影
 系统状态API
 - 引入了node的 os 模块，获取一些基础的系统状态数据
+cnode社区和知乎日报API
+- 均为转发请求，目的是为了接解决跨域访问的问题
+- cnode社区API本身支持跨域，本例只做测试用
 
-使用了es6 的 async 函数 处理异步数据
+## 特性：
+- 使用了es6 的 async 函数 处理异步数据
+- 集成node 8.0.0版本的docker 托管在云服务器方便访问
+- 使用cors模块解决跨域问题，可以通过白名单的方式去配置允许跨域的ip。
+
 ## 遇到的问题
 关于请求库 axios 在以form-data的形式发送post请求登录的的时候，遇到了问题，就是登录不上“字幕组”网站。（类似的问题 在cnode的兄弟也遇到了，不过我就没人家厉害了[关于axios在node中的post使用](https://cnodejs.org/topic/57e17beac4ae8ff239776de5)）后来直接使用了 [superagent](http://visionmedia.github.io/superagent/)感觉用起来很舒畅
 
@@ -171,3 +179,6 @@
 等……
 具体参考[izzyleung提供的API分析](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)中的使用方式以及参数含义。
 *ps: 关于图片防盗链的问题 可添加meta 标签 <meta name="referrer" content="never">*
+
+## 添加docker部分
+
