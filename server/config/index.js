@@ -15,7 +15,7 @@ module.exports = {
   },
 
   corsOptions: {  // 跨域设置 详情参考 https://github.com/expressjs/cors
-    origin: ['*'],  // 默认设置允许任何跨域访问
+    origin: '*',  // 默认设置允许任何跨域访问
     methods: ['GET', 'POST'],  // 跨域允许的方法
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   },
