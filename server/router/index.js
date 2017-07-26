@@ -39,7 +39,7 @@ router.post('/zmz/fav/detail', function (req, res, next) {
     res.json(errMsg.no_parameter())
   } else {
     console.log('get fav detail')
-    zmz.get_fav_detail()
+    zmz.get_fav_detail(user)
       .then(data => res.json(data))
       .catch(err => res.json(err))
   }

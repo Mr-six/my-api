@@ -71,7 +71,7 @@ async function getFavDetail (user) {
   // 并行执行查询
   let promises = moveData.map((el) => _getMoveDetail(cookies, el.id))
   datas.data = await Promise.all(promises);
-  return datas  
+  return datas
 }
 
 module.exports = {

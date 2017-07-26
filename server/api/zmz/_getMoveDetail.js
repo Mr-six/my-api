@@ -21,9 +21,9 @@ function getDetail (cookies, id) {
             const $ = cheerio.load(res.text, {decodeEntities: false})
 
             // 视频名称
-            let source_title = $('.download-tab.res-view-top').find('h2').text()   // 视频名称
-            let source_id = source_title.slice(0, -7) // 提取视频名称关键部分
-
+            let source_titles = $('.download-tab.res-view-top').find('h2').text()   // 视频名称
+            let source_id = source_titles.slice(0, -7) // 提取视频名称关键部分
+            let source_title = source_titles.match(/《(.+)》/)[1] // 提取视频名称关键部分
             const resource_tit = $('.resource-tit')  //  资源标题
             const download_box = $('.download-box')   // 下载区域文本
             const media_box = $('.media-box')  // 资源下载区
@@ -32,7 +32,8 @@ function getDetail (cookies, id) {
             if (!media_list.length) {
               resolve({
                 success: false,
-                dsc: '资源被删除',
+                title: source_title,
+                dsc: '资源被和谐啦(╯‵□′)╯︵┻━┻',
                 data: []
               })
             }
@@ -79,6 +80,7 @@ function getDetail (cookies, id) {
               })
               let data = {
                 success: true,
+                title: source_title,
                 dsc: source_id + '资源下载列表',
                 data: movie
               }
