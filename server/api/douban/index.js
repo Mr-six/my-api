@@ -24,7 +24,7 @@ function filterStart(data, start = 8) {
   var filmArray = data.subjects
   if (!Array.isArray(filmArray)) return
   data.subjects = filmArray.filter((el) => {
-    return el.rating.average > start
+    return el.rating.average >= start
   })
   return data
 }
