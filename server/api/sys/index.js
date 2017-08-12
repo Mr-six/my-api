@@ -2,8 +2,10 @@
 * 获取 系统当前状况
 */
 const os = require('os')
+const util = require('util');
+const exec = util.promisify(require('child_process').exec)
 
-module.exports = function () {
+function sys () {
   return new Promise (function (resolve, reject) {
     let arch = os.arch()    // cpu 架构
     let cpu = os.cpus()     // cpu 详情
@@ -25,4 +27,18 @@ module.exports = function () {
     }
     resolve(data)
   })
+}
+
+async function dist () {
+  const { stdout, stderr } = await exec('df -h')
+  if (stderr) return stderr
+  let arr = stdout.split(/\n/)                  // 分割行
+                  .filter(x => !!x)             // 分割并剔除空数组
+                  .map(el => el.split(/\s+/))   // 行内与元素分割
+  return arr
+}
+
+module.exports = {
+  sys,
+  dist
 }

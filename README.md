@@ -11,21 +11,24 @@
 
 系统状态API
 - 引入了node的 os 模块，获取一些基础的系统状态数据
+- 系统挂载磁盘空间查看
 
 cnode社区和知乎日报API
 - 均为转发请求，目的是为了接解决跨域访问的问题
 - cnode社区API本身支持跨域，本例只做测试用
+weather API 转发魅族天气 api
+- 具体可参考 [api](https://github.com/jokermonn/-Api)
 
 ## 特性：
 - 使用了es6 的 async 函数 处理异步数据
 - 集成node 8.0.0版本的docker 托管在云服务器方便访问
 - 使用cors模块解决跨域问题，可以通过白名单的方式去配置允许跨域的ip。
 
-## 在线访问地址
-使用docker容器构建，托管在了[daocloud.io](daocloud.io)的免费应用中
+## <del>在线访问地址(会自动关闭)</del>>
+<del>使用docker容器构建，托管在了[daocloud.io](daocloud.io)的免费应用中</del>
 
-- API地址：http://mrsix-api.daoapp.io
-- 访问示例：get `http://mrsix-api.daoapp.io/api/v1/zmz/hot24`  获取24小时下载热门数据
+- <del>API地址：http://mrsix-api.daoapp.io</del>
+- <del>访问示例：get `http://mrsix-api.daoapp.io/api/v1/zmz/hot24`  获取24小时下载热门数据</del>
 
 
 ## 遇到的问题
@@ -148,6 +151,70 @@ cnode社区和知乎日报API
     "uptime": 47792          # 正常运行时间（单位s）
   }
 }
+```
+#### get /api/v1/sys?sys=dist 返回系统挂载磁盘用量
+返回示例
+```
+[
+    [
+        "Filesystem",
+        "Size",
+        "Used",
+        "Avail",
+        "Capacity",
+        "iused",
+        "ifree",
+        "%iused",
+        "Mounted",
+        "on"
+    ],
+    [
+        "/dev/disk1",
+        "112Gi",
+        "34Gi",
+        "77Gi",
+        "31%",
+        "995661",
+        "4293971618",
+        "0%",
+        "/"
+    ],
+    [
+        "devfs",
+        "180Ki",
+        "180Ki",
+        "0Bi",
+        "100%",
+        "622",
+        "0",
+        "100%",
+        "/dev"
+    ],
+    [
+        "map",
+        "-hosts",
+        "0Bi",
+        "0Bi",
+        "0Bi",
+        "100%",
+        "0",
+        "0",
+        "100%",
+        "/net"
+    ],
+    [
+        "map",
+        "auto_home",
+        "0Bi",
+        "0Bi",
+        "0Bi",
+        "100%",
+        "0",
+        "0",
+        "100%",
+        "/home"
+    ]
+]
 ```
 ## cnode社区API代理
 

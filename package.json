@@ -1,13 +1,14 @@
 {
-  "name": "express_demo",
+  "name": "my-api",
   "version": "1.0.0",
   "description": "my test express web",
   "main": "index.js",
   "author": "miao",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node server/server.js",
-    "dev": "cross-env NODE_ENV=development node server/server.js"
+    "start": "cross-env NODE_ENV=development node server/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server/server.js",
+    "prod": "cross-env NODE_ENV=production node server/server.js"
   },
   "dependencies": {
     "axios": "^0.16.0",
@@ -18,5 +19,8 @@
     "express": "^4.14.0",
     "http-proxy-middleware": "^0.17.4",
     "superagent": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }

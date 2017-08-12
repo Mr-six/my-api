@@ -61,9 +61,17 @@ router.get('/movie/cur', function (req, res, next) {
 // 获取系统状态
 router.get('/sys', function (req, res, next) {
   console.log('check the system status')
-  sys()
+  let query = req.query
+  let queryFor = query.sys
+  if(queryFor) {
+    sys[queryFor]()
+      .then(data => res.json(data))
+      .catch(err => res.json(err))
+  } else {
+    sys.sys()
     .then(data => res.json(data))
     .catch(err => res.json(err))
+  }
 })
 
 module.exports = router

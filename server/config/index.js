@@ -52,6 +52,10 @@ module.exports = {
   // 知乎日报 API
   ribao: {
     BASE_URL: 'http://news-at.zhihu.com/'
+  },
+  // 天气 api 参考 https://github.com/jokermonn/-Api/blob/master/MXWeather.md
+  weather: {
+    BASE_URL: 'http://aider.meizu.com/app/weather/listWeather'
   }
 
 }

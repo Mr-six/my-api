@@ -17,6 +17,8 @@ const cnode = require('./api/cnode')  // cnode
 
 const ribao = require('./api/ribao')  // 知乎日报
 
+const weather = require('./api/weather')  // 天气
+
 app.use(bodyParser.urlencoded({ extended: false }))  // parse application/x-www-form-urlencoded
 app.use(bodyParser.json())  // parse application/json
 app.use(cors(config.corsOptions))  // 允许跨域配置
@@ -33,6 +35,9 @@ app.use('/cnode', cnode)
 
 // 知乎日报 API
 app.use('/ribao', ribao)
+
+// 天气 API
+app.use('/weather', weather)
 
 console.log('server listening at : http://localhost:' + config.port)
 
