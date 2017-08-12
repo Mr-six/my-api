@@ -8,4 +8,4 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 RUN npm install && npm cache clean --force
 
-CMD [ "npm", "prod" ]
+CMD [ "npm", "start prod" ]
